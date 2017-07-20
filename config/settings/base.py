@@ -57,6 +57,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'events.users.apps.UsersConfig',
+    'events.events'
     # Your stuff: custom apps go here
 ]
 
