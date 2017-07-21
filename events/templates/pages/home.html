@@ -1,1 +1,85 @@
 {% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+	<div class="container text-center">
+		<h1>EVENTS</h1>
+		<p>Welcome to EVENTS, here you can find events happen in his city and online register with a easy click.</p>
+		{% if request.user.is_authenticated %}
+			<p>¡<a role="button">Create</a> your event now!</p>
+		{% else %}
+			<p>¡<a role="button">Sign in</a> and create your event now!</p>
+		{% endif %}
+	</div>
+</div>
+<div class="container">
+	<div class="page-header">
+		<h4><strong>Aviable Events</strong></h4>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-tag" aria-hidden="true"></i></span>
+				<select class="form-control">
+					<option>Choose Category</option>
+					{% for category in categories %}
+					<option>{{ category.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-credit-card" aria-hidden="true"></i></span></span>
+			<select class="form-control">
+				<option>Kind Payment</option>
+				<option>Free</option>
+				<option>Payment</option>
+			</select>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span></span>
+				<input type="text" class="form-control" placeholder="Busca el evento de tu gusto">
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="container events">
+	<div class="row contenedor-eventos">
+		{% for event in events %}
+			<div class="col-sm-1 col-md-3">
+				<div class="thumbnail">
+					<img src="http://placehold.it/300x180" alt="250x180">
+					<div class="caption">
+						<h4><a href="#">{{ event.name }}</a></h4>
+						<small class="date">{{ event.date }}</small>
+						<div class="ubication">
+							<small class="place">{{ event.place|title }}</small> - <small class="city">City</small>
+						</div>
+						<div class="time">
+							<small class="start">{{ event.start }}</small> - <small class="end">{{ event.end }}</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+<div class="container categories">    
+	<div class="page-header">
+		<h4><strong>Related Categories</strong></h4>
+	</div>
+	<div class="row">
+		<div class="col-sm-1 col-md-12">
+			{% for category in categories %}
+			<a class="btn btn-default btn-lg btn-fix" href="#">
+				<i class="fa fa-tag" aria-hidden="true"></i> {{ category.name }}
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

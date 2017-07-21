@@ -43,7 +43,7 @@ class Event(TimeStart):
 	date = models.DateField(blank=False)
 	start = models.TimeField(blank=True)
 	end = models.TimeField(blank=True)
-	image = models.ImageField()
+	image = models.ImageField(blank=True)
 	free = models.BooleanField(default=True)
 	price = models.DecimalField(max_digits=5,decimal_places=2, default=0.00)
 	view = models.PositiveIntegerField(default=0)

@@ -61,9 +61,16 @@ node_modules/
 # User-uploaded media
 events/media/
 
-
-
+# User-uploaded media
+events/media/
 staticfiles/
 
 .cache/
+*.gulp/
+*src
+
+/bower_components
+events/static/vendor/*
+staticfiles/*
+
 

@@ -20,7 +20,9 @@ var gulp = require('gulp'),
       runSequence = require('run-sequence'),
       browserSync = require('browser-sync').create(),
       reload = browserSync.reload;
-
+var _ = require('gulp-load-plugins')({lazy: false});
+var concat = require('gulp-concat');
+var notify = require("gulp-notify");
 
 // Relative paths function
 var pathsConfig = function (appName) {
@@ -34,6 +36,7 @@ var pathsConfig = function (appName) {
     fonts: this.app + '/static/fonts',
     images: this.app + '/static/images',
     js: this.app + '/static/js',
+    vendor: 'bower_components',
   }
 };
 
@@ -72,6 +75,29 @@ gulp.task('imgCompression', function(){
     .pipe(gulp.dest(paths.images))
 });
 
+//vendor
+gulp.task('vendor', ['build-css' , 'build-js'], browserSync.reload)
+
+gulp.task('build-css', function () {
+  gulp.src([
+    paths.vendor + '/bootstrap/dist/css/bootstrap.css'
+  ])
+    .pipe(_.plumber({errorHandler: HandlersError}))
+    .pipe(concat('land.css'))
+    .pipe(gulp.dest(paths.css))
+    .pipe(notify('Finish task'))
+})
+
+gulp.task('build-js', function() {
+  gulp.src([paths.vendor + '/jquery/dist/jquery.js',
+    paths.vendor + '/bootstrap/dist/js/bootstrap.js'])
+    .pipe(_.plumber({errorHandler: HandlersError}))
+    .pipe(concat('vendor.js'))
+    .pipe(gulp.dest(paths.js))
+    .pipe(_.notify('Finish task'))
+})
+
+
 // Run django server
 gulp.task('runServer', function(cb) {
   var cmd = spawn('python', ['manage.py', 'runserver'], {stdio: 'inherit'});
@@ -80,6 +106,7 @@ gulp.task('runServer', function(cb) {
     cb(code);
   });
 });
+
 
 // Browser sync server for live reload
 gulp.task('browserSync', function() {
@@ -103,3 +130,9 @@ gulp.task('watch', function() {
 gulp.task('default', function() {
     runSequence(['styles', 'scripts', 'imgCompression'], 'runServer', 'browserSync', 'watch');
 });
+
+function HandlersError (e) {
+  _.notify.onError({title: 'Task error', message: "Check your terminal", sound: "Sosumi"})(e)
+  console.log(e.message)
+  this.emit('end')
+}
