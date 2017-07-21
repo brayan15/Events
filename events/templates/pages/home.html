@@ -61,7 +61,7 @@
 						<p>{{ event.description }}.</p>
 						<i class="fa fa-calendar" aria-hidden="true"></i> <small class="date">{{ event.date }}</small>
 						<div class="ubication">
-							<i class="fa fa-building" aria-hidden="true"></i> <small class="place">{{ event.place|title }}</small> - <small class="city">City</small>
+							<i class="fa fa-building" aria-hidden="true"></i> <small class="place">{{ event.place|title }}</small> - <small class="city">{{ event.city|title }}</small>
 						</div>
 						<div class="time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i> <small class="start">{{ event.start }}</small> - <small class="end">{{ event.end }}</small>

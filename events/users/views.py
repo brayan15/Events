@@ -4,6 +4,7 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import User
+from events.events.models import Event
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -11,6 +12,15 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
+    template_name = 'users/user_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        context['events'] = Event.objects.filter(user=self.request.user)
+        print (context['events'])
+        print (self.request.user)
+        context['cantidad'] = context['events'].count()
+        return context
 
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
