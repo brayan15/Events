@@ -39,6 +39,7 @@ class Event(TimeStart):
 	description = models.TextField(max_length=300)
 	content = models.TextField()
 	category = models.ForeignKey(Category)
+	city = models.CharField(max_length=20, blank=False)
 	place = models.CharField(max_length=50,blank=False)
 	date = models.DateField(blank=False)
 	start = models.TimeField(blank=True)

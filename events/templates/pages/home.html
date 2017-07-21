@@ -7,7 +7,7 @@
 		{% if request.user.is_authenticated %}
 			<p>¡<a role="button">Create</a> your event now!</p>
 		{% else %}
-			<p>¡<a role="button">Sign in</a> and create your event now!</p>
+			<p>¡<a role="button" href="{% url 'account_login' %}">Sign in</a> and create your event now!</p>
 		{% endif %}
 	</div>
 </div>
@@ -49,17 +49,22 @@
 <div class="container events">
 	<div class="row contenedor-eventos">
 		{% for event in events %}
-			<div class="col-sm-1 col-md-3">
+			<div class="col-sm-6 col-md-3">
 				<div class="thumbnail">
-					<img src="http://placehold.it/300x180" alt="250x180">
+				{% if event.image %}
+					<img src="{{ event.image.url }}" alt="event-images" class="img-responsive center-block">
+				{% else %}
+					<img src="http://placehold.it/300x180" alt="beta-image">
+				{% endif %}		
 					<div class="caption">
 						<h4><a href="#">{{ event.name }}</a></h4>
-						<small class="date">{{ event.date }}</small>
+						<p>{{ event.description }}.</p>
+						<i class="fa fa-calendar" aria-hidden="true"></i> <small class="date">{{ event.date }}</small>
 						<div class="ubication">
-							<small class="place">{{ event.place|title }}</small> - <small class="city">City</small>
+							<i class="fa fa-building" aria-hidden="true"></i> <small class="place">{{ event.place|title }}</small> - <small class="city">City</small>
 						</div>
 						<div class="time">
-							<small class="start">{{ event.start }}</small> - <small class="end">{{ event.end }}</small>
+							<i class="fa fa-clock-o" aria-hidden="true"></i> <small class="start">{{ event.start }}</small> - <small class="end">{{ event.end }}</small>
 						</div>
 					</div>
 				</div>
