@@ -16,9 +16,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UserDetailView, self).get_context_data(**kwargs)
-        context['events'] = Event.objects.filter(user=self.request.user)
-        print (context['events'])
-        print (self.request.user)
+        context['events'] = Event.objects.filter(user=self.request.user) #Get current user
         context['cantidad'] = context['events'].count()
         return context
 
