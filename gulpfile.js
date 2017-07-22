@@ -80,7 +80,8 @@ gulp.task('vendor', ['build-css' , 'build-js'], browserSync.reload)
 
 gulp.task('build-css', function () {
   gulp.src([
-    paths.vendor + '/bootstrap/dist/css/bootstrap.css'
+    paths.vendor + '/bootstrap/dist/css/bootstrap.css',
+    paths.vendor + '/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
   ])
     .pipe(_.plumber({errorHandler: HandlersError}))
     .pipe(concat('land.css'))
@@ -90,7 +91,12 @@ gulp.task('build-css', function () {
 
 gulp.task('build-js', function() {
   gulp.src([paths.vendor + '/jquery/dist/jquery.js',
-    paths.vendor + '/bootstrap/dist/js/bootstrap.js'])
+    paths.vendor + '/jquery-ui/ui/minified/jquery-ui.min.js',
+    paths.vendor + '/jquery-ui/ui/jquery.ui.datepicker.js',
+    paths.vendor + '/moment/min/moment.min.js',
+    paths.vendor + '/bootstrap/dist/js/bootstrap.js',
+    paths.vendor + '/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+    ])
     .pipe(_.plumber({errorHandler: HandlersError}))
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest(paths.js))

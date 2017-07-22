@@ -4,6 +4,7 @@ from django.views.generic import TemplateView, CreateView
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Event, Category
+from events.users.models import User
 from .forms import EventForm
 
 
@@ -20,9 +21,13 @@ class HomeView(TemplateView):
 
 class CreateEvent(LoginRequiredMixin, CreateView):
 	form_class = EventForm
+	model = Event
 	template_name = 'events/create_event.html'
-	success_url = reverse_lazy('events:detail')
 
-	def form_is_valid(self, form):
-		return super(CreteEvent,self).form_valid(form)
+	def get_success_url(self):
+		return reverse('users:detail',
+                       kwargs={'username': self.request.user.username})
 
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		return super(CreateEvent, self).form_valid(form)

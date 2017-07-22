@@ -1,4 +1,103 @@
 {% extends "base.html" %}
+{% block title %}Create Event{% endblock title %}
+{% load staticfiles i18n %}
 {% block content %}
-{{ form }}
+<div class="container">
+
+  <div class="page-header">
+    <h4>
+      <a href="{% url 'users:detail' request.user.username  %}" class="btn btn-success">
+        <i class="fa fa-long-arrow-left" aria-hidden="true"></i></span> Back
+      </a><br><br>
+    </h4>
+    <h1>Create Event</h1>
+  </div><!-- page-header -->
+
+  <div class="row">
+      
+    <div class="col-md-12">
+
+      <form role="form" method="POST" enctype="multipart/form-data">
+      	{% csrf_token %}
+          {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+              {{ form.errors }}
+            </div>
+          {% endif %}
+          <div class="form-group">
+            <label>{{ form.name.label_tag }}</label>
+             {{ form.name }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.description.label_tag }}</label>
+             {{ form.description }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.content.label_tag }}</label>
+             {{ form.content }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.category.label_tag }}</label>
+             {{ form.category }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.city.label_tag }}</label>
+             {{ form.city }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.place.label_tag }}</label>
+             {{ form.place }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.date.label_tag }}</label>
+             {{ form.date }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.start.label_tag }}</label>
+             {{ form.start }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.end.label_tag }}</label>
+             {{ form.end }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.image.label_tag }}</label>
+             {{ form.image }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.free.label_tag }}</label>
+             {{ form.free }}
+          </div>
+          <div class="form-group">
+            <label>{{ form.price.label_tag }}</label>
+             {{ form.price }}
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Create Event</button>
+            <a href="{% url 'users:detail' request.user.username  %}" class="btn btn-danger">Cancel</a>
+          </div>
+      </form>
+
+    </div><!-- col-md-12 -->
+
+  </div><!-- /row -->
+
+</div><!-- /container -->
 {% endblock content %}
+{% block extra_javascript %}
+<script type="text/javascript">
+	$('.date-picker').datepicker({
+	});
+	$(function () {
+    $('.date-time').datetimepicker({
+    	format: 'HH:mm:ss',
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down"
+      }
+    });
+  });
+</script>
+{% endblock extra_javascript %}

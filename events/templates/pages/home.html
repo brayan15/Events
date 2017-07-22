@@ -5,7 +5,7 @@
 		<h1>EVENTS</h1>
 		<p>Welcome to EVENTS, here you can find events happen in his city and online register with a easy click.</p>
 		{% if request.user.is_authenticated %}
-			<p>¡<a role="button">Create</a> your event now!</p>
+			<p>¡<a role="button" href="{% url 'events:create_event' %}">Create</a> your event now!</p>
 		{% else %}
 			<p>¡<a role="button" href="{% url 'account_login' %}">Sign in</a> and create your event now!</p>
 		{% endif %}
@@ -52,7 +52,7 @@
 			<div class="col-sm-6 col-md-3">
 				<div class="thumbnail">
 				{% if event.image %}
-					<img src="{{ event.image.url }}" alt="event-images" class="img-responsive center-block">
+					<img src="{{ event.image.url }}" alt="{{ event.name }" class="img-responsive center-block">
 				{% else %}
 					<img src="http://placehold.it/300x180" alt="beta-image">
 				{% endif %}		
