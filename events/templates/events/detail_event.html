@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="text-center">{{event.name}}</h1>
+  {% if event.image %}
+    <img src="{{ event.image.url }}" alt="{{ event.name }" class="img-responsive center-block">
+  {% else %}
+    <img src="http://placehold.it/300x180" alt="beta-image" class="img-responsive center-block">
+  {% endif %}
+  <br>
+  <br>
+  <p>
+    <b>Description:</b> <br>
+    {{event.description}}
+  </p>
+  <p>
+    <b>Content:</b> <br>
+    {{event.content}}
+  </p>
+  <p>
+    <b>Date:</b> <br>
+    {{event.date}}
+  </p>
+  <p>
+    <b>Place:</b> <br>
+    {{event.place}}
+  </p>
+  <p>
+    <b>Start:</b> <br>
+    {{event.start}}
+  </p>
+  <p>
+    <b>End:</b> <br>
+    {{event.end}}
+  </p>
+  <p>
+    {% if  event.free%}
+      This event is free, feel free to go
+    {% else %}
+      <b>Price:</b> {{event.price}} <br>
+      If you want go to event, please pay price event.<br><br>
+      <form method="post" action="{% url 'transactions:complete_transaction' %}">
+        {% csrf_token %}
+        <input name="event"    type="hidden"  value="{{ event.id }}">
+        <input name="price"    type="hidden"  value="{{ event.price }}">
+        <input name="Submit" class="btn btn-primary" type="submit"  value="Pay Event" >
+      </form>
+    {% endif %}
+  </p>
+{% endblock content %}

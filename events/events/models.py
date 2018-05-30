@@ -64,8 +64,8 @@ class Assistant(TimeStart):
 	attended = models.BooleanField(default=False)
 	paid = models.BooleanField(default=False)
 
-	def __unicode__(self):
-		return '%s %s' % (self.assistant.username, self.event.name)
+	""" def __unicode__(self):
+		return '%s %s' % (self.assistant, self.event.name) """
 
 
 class Comment(TimeStart):

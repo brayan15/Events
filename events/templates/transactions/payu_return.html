@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+
+{% if valid_transaction %}
+	<h2>Transaction Detail</h2>
+	<table>
+		<tr>
+			<td>Transaction Status</td>
+			<td>
+			{% if transaction_state == '4' %}
+				Success transaction
+			{% elif transaction_state == '6' %}
+				Failed transaction
+			{% elif transaction_state == '104' %}
+				Error
+			{% elif transaction_state == '7' %}
+				Waiting transaction
+			{% else %}
+				{{ payu_message }}
+			{% endif %}	
+			</td>
+		</tr>
+	<tr>
+	<td>Transactio  ID</td>
+	<td>{{ transaction_id }}</td>
+	</tr>
+	<tr>
+	<td>Sale Reference</td>
+	<td>{{ reference_pol }}</td> 
+	</tr>
+	<tr>
+	<td>Transaction Reference</td>
+	<td>{{ reference_code }}</td>
+	</tr>
+	<tr>
+	{% if pse_bank %}
+		<tr>
+		<td>PSE Code</td>
+		<td>{{ cus }}</td>
+		</tr>
+		<tr>
+		<td>Bank</td>
+		<td>{{ pse_bank }}</td>
+		</tr>
+	{% endif %}
+	<tr>
+	<td>Total Value</td>
+	<td>{{ total_value }}</td>
+	</tr>
+	<tr>
+	<td>Currency</td>
+	<td>{{ currency }}</td>
+	</tr>
+	<tr>
+	<td>Description</td>
+	<td>{{ description }}</td>
+	</tr>
+	<tr>
+	<td>Payment Method:</td>
+	<td>{{ payment_method }}</td>
+	</tr>
+	</table>
+	<a href="/">Go to Home</a>
+{% else %}
+	<h1>Error with digital sign</h1>
+	<a href="/">Go to Home</a>
+{% endif %}
+	</div>
+</div>
+{% endblock content %}

@@ -31,3 +31,9 @@ class CreateEvent(LoginRequiredMixin, CreateView):
 	def form_valid(self, form):
 		form.instance.user = self.request.user
 		return super(CreateEvent, self).form_valid(form)
+
+
+class DetailEvent(DetailView):
+	model = Event
+	template_name = 'events/detail_event.html'
+	context_object_name = 'event'

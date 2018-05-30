@@ -57,7 +57,7 @@
 					<img src="http://placehold.it/300x180" alt="beta-image">
 				{% endif %}		
 					<div class="caption">
-						<h4><a href="#">{{ event.name }}</a></h4>
+						<h4><a href="{% url 'events:detail_event' event.pk %}">{{ event.name }}</a></h4>
 						<p>{{ event.description }}.</p>
 						<i class="fa fa-calendar" aria-hidden="true"></i> <small class="date">{{ event.date }}</small>
 						<div class="ubication">

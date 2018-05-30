@@ -57,7 +57,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'events.users.apps.UsersConfig',
-    'events.events'
+    'events.events',
+    'events.transactions',
     # Your stuff: custom apps go here
 ]
 
@@ -271,6 +272,15 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
+
+SITE_URL = env('DJANGO_SITE_URL', default="http://localhost:8000")
+
+# PAYU SETTINGS
+PAYU_PAYMENT_URL = env("DJANGO_PAYU_PAYMENT_URL")
+PAYU_API_KEY = env("DJANGO_PAYU_API_KEY")
+PAYU_MERCHANT_ID = env("DJANGO_PAYU_MERCHANT_ID")
+PAYU_ACCOUNT_ID = env("DJANGO_PAYU_ACCOUNT_ID")
+PAYU_PRODUCTION = env("DJANGO_PAYU_PRODUCTION", default=False)
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------

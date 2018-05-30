@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<p>Transaction number: {{ transaction.uuid }}</p>
+		<p>Value: {{ transaction.value }}</p>
+		<p>Request date: {{ transaction.created_at }}</p>
+	</div>
+	<div class="col-md-12">
+		<form method="post" action="{{ payu_url }}">
+			<input name="merchantId"    type="hidden"  value="{{ merchantId }}">
+			<input name="accountId"     type="hidden"  value="{{ accountId }}" >
+			<input name="description"   type="hidden"  value="Purchase of event made by {{ request.user.email }}">
+			<input name="referenceCode" type="hidden"  value="{{ transaction.uuid }}">
+			<input name="amount"        type="hidden"  value="{{ transaction.value }}">
+			<input name="tax"           type="hidden"  value="0">
+			<input name="taxReturnBase" type="hidden"  value="0">
+			<input name="currency"      type="hidden"  value="COP" >
+			<input name="signature"     type="hidden"  value="{{ signature }}">
+			<input name="test"          type="hidden"  value="{{ payu_sandbox }}">
+			<input name="buyerEmail"    type="hidden"  value="{{ request.user.email }}">
+			<input name="responseUrl"    type="hidden"  value="{{ site_url }}{% url 'transactions:return_transaction' %}" >
+			<input name="confirmationUrl"    type="hidden"  value="{{ site_url }}{% url 'transactions:success_transaction' %}" >
+			<input name="Submit" class="btn btn-primary" type="submit"  value="Completar pago" >
+		</form>
+	</div>
+</div>
+{% endblock content %}

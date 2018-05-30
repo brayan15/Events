@@ -16,6 +16,7 @@ urlpatterns = [
     # User management
     url(r'^users/', include('events.users.urls', namespace='users')),
     url(r'^events/', include('events.events.urls', namespace='events')),
+    url(r'^transactions/', include('events.transactions.urls', namespace='transactions')),
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
